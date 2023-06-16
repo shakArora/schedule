@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Day Type</title>
+</head>
+<body>
+  <h1>Loading...</h1>
+
+  <script>
+    // Fetch the JSON data
+    fetch('days.json')
+      .then(response => response.json())
+      .then(jsonData => {
+        // Get the current date
+        var currentDate = new Date().toISOString().split('T')[0];
+
+        // Find the matching day in the JSON data
+        var matchingDay = jsonData.find(function(day) {
+          return day.date === currentDate;
+        });
+
+        // Determine the page to load based on the day type
+        var pageToLoad = '';
+        if (matchingDay) {
+          var dayType = matchingDay.type.toLowerCase();
+          if (dayType === 'full day') {
+            pageToLoad = 'full-day.html';
+          } else if (dayType === 'half day') {
+            pageToLoad = 'half-day.html';
+          }
+          else if (dayType === 'no school') {
+            pageToLoad = 'no-school.html';
+          }
+        }
+
+        // Load the corresponding page
+        if (pageToLoad) {
+          window.location.href = pageToLoad;
+        } else {
+          // Handle the case when the day is not found in the JSON data
+          alert('No schedule available for the current date.');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching JSON data:', error);
+      });
+  </script>
+</body>
+</html>

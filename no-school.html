@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LPMS Schedule</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>LPMS Schedule</h1>
+    <div class="time-box">
+      <h2>Today's Date: <span id="currentDate"></span></h2>
+      <h2>Time: <span id="currentTime"></span></h2>
+      <h2>Current Period: <span class="current-period-value" id="currentPeriodBox"></span></h2>
+      <button class="button" onclick="window.location.href='announcements.html'">Announcements</button>
+    </div>
+    <div class="container">
+
+      <hr>
+      <h2>Today is a: <strong><span id="dayType"></span></strong><strong><span id="comment"></span></strong></h2>
+
+      <h2>Time Until Period Ends:</h2>
+      <div class="time-box">
+        <div class="time-label">Hours</div>
+        <div id="hoursLeftBox" class="time-value"></div>
+      </div>
+      <div class="time-box">
+        <div class="time-label">Minutes</div>
+        <div id="minutesLeftBox" class="time-value"></div>
+      </div>
+      <div class="time-box">
+        <div class="time-label">Seconds</div>
+        <div id="secondsLeftBox" class="time-value"></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>School Schedule:</h2>
+      <table>
+        <tr>
+          <th>Period</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+        </tr>
+        <tr>
+          <td>No school</td>
+          <td>No school</td>
+          <td>No school</td>
+        </tr>
+        
+      </table>
+    </div>
+  </div>
+
+  <div id="info">
+    <br>
+    <hr>
+    <p>This website was created by Shivum Arora (LPMS).</p>
+    <p>If you find an error or have a suggestion, please email me at <a href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWrRnZMxWdrfbNJqVVnThhcbPtPNGtLgTVJnNKQwbFWXbSmswZFBXFnWHXzLqvmXTSmtMSBnb">195726@mcpsmd.net</a>.</p>
+    <p>Copyright @shakArora, Idea by DefyGG (Daniel Mathew) (PHS).</p>
+    <hr>
+    <p>
+          <br>
+        Current version: <strong>1.0.1</strong> <br>
+        Last updated: <strong>6/16/23</strong>
+    </p>
+  </div>
+  <script>
+    fetch('days.json')
+  .then(response => response.json())
+  .then(data => {
+    // Get today's date
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    // Find the corresponding day type and comment for today's date
+    var dayData = data.find(day => day.date === currentDate);
+
+    // Display the day type
+    document.getElementById('dayType').innerHTML = dayData?.type || 'Unknown';
+
+    // Display the comment
+    document.getElementById('comment').innerHTML = dayData?.comment || '';
+  })
+  .catch(error => {
+    console.log('Error fetching JSON data:', error);
+  });
+
+    // Calculate time until period ends
+    function calculateTimeUntilPeriodEnds() {
+      var periodEndTime = new Date();
+      var currentPeriod = getCurrentPeriod();
+
+
+
+      var currentTime = new Date();
+      var timeDiff = periodEndTime - currentTime;
+
+      // Calculate hours, minutes, and seconds
+      var hours = Math.floor(timeDiff / (1000 * 60 * 60));
+      var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      // Update the time boxes
+      document.getElementById("hoursLeftBox").innerHTML = hours;
+      document.getElementById("minutesLeftBox").innerHTML = minutes;
+      document.getElementById("secondsLeftBox").innerHTML = seconds;
+    }
+
+    // Update the current period box
+    function updateCurrentPeriodBox() {
+      var currentPeriod = getCurrentPeriod();
+
+      document.getElementById("currentPeriodBox").innerHTML = currentPeriod;
+    }
+
+    // Get the current period based on the current time
+    function getCurrentPeriod() {
+  var currentDateTime = new Date();
+  var currentHour = currentDateTime.getHours();
+  var currentMinute = currentDateTime.getMinutes();
+
+  if (currentHour >= 0) {
+    return "No school";
+  } 
+    }
+    
+
+    // Update the current time box
+    function updateCurrentTimeBox() {
+      var currentTime = new Date();
+      var hours = currentTime.getHours();
+      var minutes = currentTime.getMinutes();
+      var seconds = currentTime.getSeconds();
+
+      document.getElementById("currentDate").innerHTML =
+        currentTime.toDateString();
+      document.getElementById("currentTime").innerHTML =
+        hours + ":" + minutes + ":" + seconds;
+    }
+
+    // Update the time boxes every second
+    setInterval(function () {
+      updateCurrentPeriodBox();
+      calculateTimeUntilPeriodEnds();
+      updateCurrentTimeBox();
+    }, 1000);
+  </script>
+</body>
+</html>
