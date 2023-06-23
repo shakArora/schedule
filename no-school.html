@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <script src="thing.js"></script>
   <div class="container">
     <h1>LPMS Schedule</h1>
     <div class="time-box">
@@ -61,30 +62,23 @@
     <p>
           <br>
         Current version: <strong>1.0.1</strong> <br>
-        Last updated: <strong>6/16/23</strong>
+        Last updated: <strong>6/23/23</strong>
     </p>
   </div>
   <script>
     fetch('days.json')
   .then(response => response.json())
   .then(data => {
-    // Get today's date
     var currentDate = new Date().toISOString().split('T')[0];
-
-    // Find the corresponding day type and comment for today's date
     var dayData = data.find(day => day.date === currentDate);
-
-    // Display the day type
     document.getElementById('dayType').innerHTML = dayData?.type || 'Unknown';
 
-    // Display the comment
     document.getElementById('comment').innerHTML = dayData?.comment || '';
   })
   .catch(error => {
     console.log('Error fetching JSON data:', error);
   });
 
-    // Calculate time until period ends
     function calculateTimeUntilPeriodEnds() {
       var periodEndTime = new Date();
       var currentPeriod = getCurrentPeriod();
@@ -94,25 +88,20 @@
       var currentTime = new Date();
       var timeDiff = periodEndTime - currentTime;
 
-      // Calculate hours, minutes, and seconds
       var hours = Math.floor(timeDiff / (1000 * 60 * 60));
       var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-      // Update the time boxes
       document.getElementById("hoursLeftBox").innerHTML = hours;
       document.getElementById("minutesLeftBox").innerHTML = minutes;
       document.getElementById("secondsLeftBox").innerHTML = seconds;
     }
-
-    // Update the current period box
     function updateCurrentPeriodBox() {
       var currentPeriod = getCurrentPeriod();
 
       document.getElementById("currentPeriodBox").innerHTML = currentPeriod;
     }
 
-    // Get the current period based on the current time
     function getCurrentPeriod() {
   var currentDateTime = new Date();
   var currentHour = currentDateTime.getHours();
@@ -124,7 +113,6 @@
     }
     
 
-    // Update the current time box
     function updateCurrentTimeBox() {
       var currentTime = new Date();
       var hours = currentTime.getHours();
@@ -137,7 +125,6 @@
         hours + ":" + minutes + ":" + seconds;
     }
 
-    // Update the time boxes every second
     setInterval(function () {
       updateCurrentPeriodBox();
       calculateTimeUntilPeriodEnds();
