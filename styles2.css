@@ -18,6 +18,24 @@ body {
     cursor: pointer;
     transition: all 0.5s;
   }
+  a:link {
+    color: rgb(255, 255, 255);
+    }
+    
+    /* visited link */
+    a:visited {
+    color: rgb(255, 255, 255);
+    }
+    
+    /* mouse over link */
+    a:hover {
+    color: white;
+    }
+    
+    /* selected link */
+    a:active {
+    color: rgb(205, 255, 200);
+    }
   h3 {
       text-align: center;
     color: #ffffff;
