@@ -111,13 +111,13 @@
   },
   {
     "date": "2023-07-07",
-    "type": "Full Day",
+    "type": "Half Day",
     "comment": " - Testing"
   },
   {
     "date": "2023-07-08",
-    "type": "No School",
-    "comment": " - Weekend"
+    "type": "Half Day",
+    "comment": " - Testing"
   },
   {
     "date": "2023-07-09",
