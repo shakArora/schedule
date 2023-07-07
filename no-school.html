@@ -97,7 +97,9 @@
       document.getElementById("hoursLeftBox").innerHTML = hours;
       document.getElementById("minutesLeftBox").innerHTML = minutes;
       document.getElementById("secondsLeftBox").innerHTML = seconds;
-      document.getElementById("pageTitle").innerHTML = remainingTime;
+      var urmom = remainingTime + ' - LPMS Schedule';
+      document.getElementById("pageTitle").innerText = urmom;
+
     }
     function updateCurrentPeriodBox() {
       var currentPeriod = getCurrentPeriod();
