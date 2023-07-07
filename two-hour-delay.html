@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title id="pageTitle"></title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <script src="thing.js"></script>
+  <div class="container">
+    <h1>LPMS Schedule</h1>
+    <div class="time-box">
+      <h2>Today's Date: <strong><span id="currentDate"></span></strong></h2>
+      <h2>Time: <strong><span id="currentTime"></span></strong></h2>
+      <h2>Current Period: <span class="current-period-value" id="currentPeriodBox"></span></h2>
+      <button class="button" onclick="window.location.href='announcements.html'">Announcements</button>
+    </div>
+    <div class="container">
+
+      <hr>
+      <h2>Today is a: <strong><span id="dayType"></span></strong><strong><span id="comment"></span></strong></h2>
+
+      <h2>Time Until Period Ends:</h2>
+      <div class="time-box">
+        <div class="time-label">Hours</div>
+        <div id="hoursLeftBox" class="time-value"></div>
+      </div>
+      <div class="time-box">
+        <div class="time-label">Minutes</div>
+        <div id="minutesLeftBox" class="time-value"></div>
+      </div>
+      <div class="time-box">
+        <div class="time-label">Seconds</div>
+        <div id="secondsLeftBox" class="time-value"></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Two Hour Delay Schedule:</h2>
+      <table>
+        <tr>
+          <th>Period</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+        </tr>
+        <tr>
+            <td>Delay</th>
+            <td>8:15 AM</th>
+            <td>10:15 AM</th>
+          </tr>
+        <tr>
+          <td>1</td>
+          <td>10:15 AM</td>
+          <td>10:46 AM</td>
+        </tr>
+        <tr>
+          <td>2 (Talon TV)</td>
+          <td>10:50 AM</td>
+          <td>11:26 AM</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>11:30 AM</td>
+          <td>12:01 PM</td>
+        </tr>
+        <tr>
+          <td>4 (8th Grade Lunch)</td>
+          <td>12:05 PM</td>
+          <td>12:37 PM</td>
+        </tr>
+        <tr>
+          <td>5 (6th Grade Lunch)</td>
+          <td>12:41 PM</td>
+          <td>1:13 PM</td>
+        </tr>
+        <tr>
+          <td>6 (7th Grade Lunch)</td>
+          <td>1:17 PM</td>
+          <td>1:49 PM</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>1:53 PM</td>
+          <td>2:24 PM</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>2:28 PM</td>
+          <td>3:00 PM</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="info">
+    <br>
+    <hr>
+    <p>This website was created by Shivum Arora (LPMS).</p>
+    <p>If you find an error or have a suggestion, please email me at <a href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWrRnZMxWdrfbNJqVVnThhcbPtPNGtLgTVJnNKQwbFWXbSmswZFBXFnWHXzLqvmXTSmtMSBnb">195726@mcpsmd.net</a>.</p>
+    <p>Copyright @shakArora, Idea by DefyGG (Daniel Mathew) (PHS).</p>
+    <hr>
+    <p>
+          <br>
+        Current version: <strong>1.0.1</strong> <br>
+        Last updated: <strong>7/7/23</strong>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </p>
+  </div>
+  <script>
+    fetch('days.json')
+  .then(response => response.json())
+  .then(data => {
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    var dayData = data.find(day => day.date === currentDate);
+
+    document.getElementById('dayType').innerHTML = dayData?.type || 'Unknown';
+
+    document.getElementById('comment').innerHTML = dayData?.comment || '';
+  })
+  .catch(error => {
+    console.log('Error fetching JSON data:', error);
+  });
+
+function calculateTimeUntilPeriodEnds() {
+  var periodEndTime = new Date();
+  var currentPeriod = getCurrentPeriod();
+
+  switch (currentPeriod) {
+    case "Delay":
+      periodEndTime.setHours(10, 15, 0);
+      break;
+    case "Period 1":
+      periodEndTime.setHours(10, 46, 0);
+      break;
+    case "Transition 1":
+      periodEndTime.setHours(10, 50, 0);
+      break;
+    case "Period 2 (Talon TV)":
+      periodEndTime.setHours(11, 26, 0);
+      break;
+    case "Transition 2":
+      periodEndTime.setHours(11, 30, 0);
+      break;
+    case "Period 3":
+      periodEndTime.setHours(12, 01, 0);
+      break;
+    case "Transition 3":
+      periodEndTime.setHours(12, 05, 0);
+      break;
+    case "Period 4 (8th Grade Lunch)":
+      periodEndTime.setHours(12, 37, 0);
+      break;
+    case "Transition 4":
+      periodEndTime.setHours(12, 41, 0);
+      break;
+    case "Period 5 (6th Grade Lunch)":
+      periodEndTime.setHours(13, 13, 0);
+      break;
+    case "Transition 5":
+      periodEndTime.setHours(13, 17, 0);
+      break;
+    case "Period 6 (7th Grade Lunch)":
+      periodEndTime.setHours(13, 49, 0);
+      break;
+    case "Transition 6":
+      periodEndTime.setHours(13, 53, 0);
+      break;
+    case "Period 7":
+      periodEndTime.setHours(14, 24, 0);
+      break;
+    case "Transition 7":
+      periodEndTime.setHours(14, 28, 0);
+      break;
+    case "Period 8":
+      periodEndTime.setHours(15, 0, 0);
+      break;
+
+    default:
+      break;
+  }
+
+  var currentTime = new Date();
+  var timeDiff = periodEndTime - currentTime;
+
+  var hours = Math.floor(timeDiff / (1000 * 60 * 60));
+  var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+  var remainingTime = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+  document.getElementById("hoursLeftBox").innerHTML = hours;
+  document.getElementById("minutesLeftBox").innerHTML = minutes;
+  document.getElementById("secondsLeftBox").innerHTML = seconds;
+  var urmom = remainingTime + ' - LPMS Schedule';
+  document.getElementById("pageTitle").innerText = urmom;
+}
+function updateCurrentPeriodBox() {
+      var currentPeriod = getCurrentPeriod();
+
+      document.getElementById("currentPeriodBox").innerHTML = currentPeriod;
+    }
+
+
+function getCurrentPeriod() {
+  var currentDateTime = new Date();
+  var currentHour = currentDateTime.getHours();
+  var currentMinute = currentDateTime.getMinutes();
+
+  if (currentHour < 8 || (currentHour === 8 && currentMinute < 15)) {
+    return "Before School";
+  } else if ((currentHour === 10 && currentMinute < 15) || (currentHour === 9) || (currentHour === 8 && currentMinute >= 15)) {
+    return "Delay";
+  } else if ((currentHour === 10 && currentMinute >= 15) && (currentHour === 10 && currentMinute < 56)) {
+    return "Period 1";
+  } else if ((currentHour === 10 && currentMinute >= 46) && (currentHour === 10 && currentMinute < 50)) {
+    return "Transition 1";
+  } else if ((currentHour === 10 && currentMinute >= 50) || (currentHour === 11 && currentMinute < 26)) {
+    return "Period 2 (Talon TV)";
+  } else if ((currentHour === 11 && currentMinute >= 26) && (currentHour === 11 && currentMinute < 30)) {
+    return "Transition 2";
+  } else if ((currentHour === 11 && currentMinute >= 30) || (currentHour === 12 && currentMinute < 01)) {
+    return "Period 3";
+  } else if ((currentHour === 12 && currentMinute >= 01) && (currentHour === 12 && currentMinute < 05)) {
+    return "Transition 3";
+  } else if ((currentHour === 12 && currentMinute >= 05) && (currentHour === 12 && currentMinute < 37)) {
+    return "Period 4 (8th Grade Lunch)";
+  } else if ((currentHour === 12 && currentMinute >= 37) && (currentHour === 12 && currentMinute < 41)) {
+    return "Transition 4";
+  } else if ((currentHour === 12 && currentMinute >= 41) || (currentHour === 13 && currentMinute < 13)) {
+    return "Period 5 (6th Grade Lunch)";
+  } else if ((currentHour === 13 && currentMinute >= 13) && (currentHour === 13 && currentMinute < 17)) {
+    return "Transition 5";
+  } else if ((currentHour === 13 && currentMinute >= 17) && (currentHour === 13 && currentMinute < 49)) {
+    return "Period 6 (7th Grade Lunch)";
+  } else if ((currentHour === 13 && currentMinute >= 49) && (currentHour === 13 && currentMinute < 53)) {
+    return "Transition 6";
+  } else if ((currentHour === 13 && currentMinute >= 53) || (currentHour === 14 && currentMinute < 24)) {
+    return "Period 7";
+  } else if ((currentHour === 14 && currentMinute >= 24) && (currentHour === 14 && currentMinute < 28)) {
+    return "Transition 7";
+  } else if ((currentHour === 14 && currentMinute >= 13) || (currentHour === 15 && currentMinute < 0)) {
+    return "Period 8";
+  } else if (currentHour >= 15) {
+    return "After school";
+  } else {
+    return "Unknown";
+  }
+}
+setInterval(calculateTimeUntilPeriodEnds, 1000);
+
+function updateCurrentTimeBox() {
+  var currentTime = new Date();
+  var hours = currentTime.getHours();
+  var minutes = currentTime.getMinutes();
+  var seconds = currentTime.getSeconds();
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+
+  var month = currentTime.getMonth() + 1;
+var day = currentTime.getDate();
+var year = currentTime.getFullYear().toString().slice(-2);
+var formattedDate = month + '/' + day + '/' + year;
+document.getElementById("currentDate").innerHTML = formattedDate;
+  document.getElementById("currentTime").innerHTML =
+    hours + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0') + " " + ampm;
+}
+
+
+    setInterval(function () {
+      updateCurrentPeriodBox();
+      calculateTimeUntilPeriodEnds();
+      updateCurrentTimeBox();
+    }, 1000);
+  
+  </script>
+</body>
+</html>
