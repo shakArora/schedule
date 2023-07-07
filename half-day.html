@@ -9,8 +9,8 @@
   <div class="container">
     <h1>LPMS Schedule</h1>
     <div class="time-box">
-      <h2>Today's Date: <span id="currentDate"></span></h2>
-      <h2>Time: <span id="currentTime"></span></h2>
+      <h2>Today's Date: <strong><span id="currentDate"></span></strong></h2>
+      <h2>Time: <strong><span id="currentTime"></span></strong></h2>
       <h2>Current Period: <span class="current-period-value" id="currentPeriodBox"></span></h2>
       <button class="button" onclick="window.location.href='announcements.html'">Announcements</button>
     </div>
@@ -243,17 +243,28 @@
 
     
     
-    function updateCurrentTimeBox() {
-      var currentTime = new Date();
-      var hours = currentTime.getHours();
-      var minutes = currentTime.getMinutes();
-      var seconds = currentTime.getSeconds();
+setInterval(calculateTimeUntilPeriodEnds, 1000);
 
-      document.getElementById("currentDate").innerHTML =
-        currentTime.toDateString();
-      document.getElementById("currentTime").innerHTML =
-        hours + ":" + minutes + ":" + seconds;
-    }
+function updateCurrentTimeBox() {
+  var currentTime = new Date();
+  var hours = currentTime.getHours();
+  var minutes = currentTime.getMinutes();
+  var seconds = currentTime.getSeconds();
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+
+  var month = currentTime.getMonth() + 1;
+var day = currentTime.getDate();
+var year = currentTime.getFullYear().toString().slice(-2);
+var formattedDate = month + '/' + day + '/' + year;
+document.getElementById("currentDate").innerHTML = formattedDate;
+  document.getElementById("currentTime").innerHTML =
+    hours + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0') + " " + ampm;
+}
+
+
     setInterval(function () {
       updateCurrentPeriodBox();
       calculateTimeUntilPeriodEnds();
