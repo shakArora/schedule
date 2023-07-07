@@ -18,7 +18,10 @@ fetch('days.json')
           }
           else if (dayType === 'no school') {
             pageToLoad = 'no-school.html';
+          } else if (dayType === 'two hour delay') {
+            pageToLoad = 'two-hour-delay.html';
           }
+          
         }
         if ((pageToLoad) && (!window.location.href.includes(pageToLoad))) {
           window.location.href = pageToLoad;
