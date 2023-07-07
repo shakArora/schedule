@@ -111,7 +111,7 @@
   },
   {
     "date": "2023-07-07",
-    "type": "Half Day",
+    "type": "Two Hour Delay",
     "comment": " - Testing"
   },
   {
@@ -371,28 +371,28 @@
   },
   {
     "date": "2023-08-28",
-    "type": "Full Day",
+    "type": "Two Hour Delay",
     "comment": " - First day of school"
   },
   {
     "date": "2023-08-29",
-    "type": "Full Day",
-    "comment": ""
+    "type": "Two Hour Delay",
+    "comment": "Homeroom Schedule"
   },
   {
     "date": "2023-08-30",
-    "type": "Full Day",
-    "comment": ""
+    "type": "Two Hour Delay",
+    "comment": "Homeroom Schedule"
   },
   {
     "date": "2023-08-31",
-    "type": "Full Day",
-    "comment": ""
+    "type": "Two Hour Delay",
+    "comment": "Homeroom Schedule"
   },
   {
     "date": "2023-09-1",
-    "type": "Full Day",
-    "comment": ""
+    "type": "Two Hour Delay",
+    "comment": "Homeroom Schedule"
   },
   {
     "date": "2023-09-2",
