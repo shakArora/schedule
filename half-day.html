@@ -220,7 +220,7 @@
     return "Period 5 (6th Grade Lunch)";
   } else if ((currentHour === 10 && currentMinute >= 56) || (currentHour === 11 && currentMinute < 0)) {
     return "Transition 5";
-  } else if ((currentHour === 11 && currentMinute >= 00) || (currentHour === 11 && currentMinute < 30)) {
+  } else if ((currentHour === 11 && currentMinute >= 00) && (currentHour === 11 && currentMinute < 30)) {
     return "Period 6 (7th Grade Lunch)";
   } else if ((currentHour === 11 && currentMinute >= 30) && (currentHour === 11 && currentMinute < 34)) {
     return "Transition 6";
