@@ -8,6 +8,7 @@ body {
   padding: 0;
   min-height: 100vh;
   overflow-x: hidden;
+  
 }
 
 
@@ -15,42 +16,36 @@ body {
     width: 100%;
   }
   a:link {
-color: rgb(145, 229, 255);
-}
-
-/* visited link */
-a:visited {
 color: rgb(255, 255, 255);
 }
 
-/* mouse over link */
-a:hover {
-color: white;
+
+.button {
+	box-shadow: 0px 13px 21px -6px #276873;
+	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	background-color:#599bb3;
+	border-radius:14px;
+	border:2px solid #29668f;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Verdana;
+	font-size:15px;
+	font-weight:bold;
+	padding:11px 22px;
+	text-decoration:none;
+	text-shadow:-3px 4px 2px #3d768a;
+}
+.button:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99;
+}
+.button:active {
+	position:relative;
+	top:1px;
 }
 
-/* selected link */
-a:active {
-color: rgb(21, 255, 0);
-}
 
-  .button {
-    display: inline-block;
-    background-color: #4c9daf;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.4s;
-  }
-
-  .button:hover {
-    background-color: #000a01;
-    color:#4c9daf;
-  }
 
   .container {
     max-width: 600px;
