@@ -28,18 +28,12 @@ function parseData() {
 
       const jsonData = JSON.stringify(days, null, 2);
 
-
       const username = 'shakArora';
       const repository = 'schedule';
       const filePath = 'days.json';
       const branch = 'main';
 
-
       const apiUrl = 'https://api.github.com/repos/shakArora/schedule/contents/data/days.json';
-
-
-`;
-
 
       const requestBody = {
         message: 'Update days.json',
@@ -47,7 +41,6 @@ function parseData() {
         sha: '', 
         branch: branch,
       };
-
 
       fetch(apiUrl)
         .then(response => response.json())
@@ -58,7 +51,7 @@ function parseData() {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: Bearer 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, 
+              Authorization: `token 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`, 
             },
             body: JSON.stringify(requestBody),
           })
