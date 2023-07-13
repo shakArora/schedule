@@ -35,7 +35,8 @@ function parseData() {
       const branch = 'main';
 
 
-      const apiUrl = `const apiUrl = 'https://api.github.com/repos/shakArora/schedule/contents/days.json';
+      const apiUrl = 'https://api.github.com/repos/shakArora/schedule/contents/days.json';
+
 `;
 
 
