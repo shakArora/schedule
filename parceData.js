@@ -33,7 +33,7 @@ function parseData() {
       const filePath = 'days.json';
       const branch = 'main';
 
-      const apiUrl = 'https://api.github.com/repos/shakArora/schedule/contents/data/days.json';
+      const apiUrl = 'https://api.github.com/repos/shakArora/schedule/contents/days.json';
 
       const requestBody = {
         message: 'Update days.json',
