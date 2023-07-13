@@ -28,16 +28,49 @@ function parseData() {
 
       const jsonData = JSON.stringify(days, null, 2);
 
-      const dataUri =
-        'data:application/json;charset=utf-8,' +
-        encodeURIComponent(jsonData);
-      const link = document.createElement('a');
-      link.href = dataUri;
-      link.download = 'days.json';
 
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      const username = 'shakArora';
+      const repository = 'schedule';
+      const filePath = 'days.json';
+      const branch = 'main';
+
+
+      const apiUrl = `const apiUrl = 'https://api.github.com/repos/shakArora/schedule/contents/days.json';
+`;
+
+
+      const requestBody = {
+        message: 'Update days.json',
+        content: btoa(jsonData), 
+        sha: '', 
+        branch: branch,
+      };
+
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(fileData => {
+          requestBody.sha = fileData.sha;
+
+          fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer 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`, 
+            },
+            body: JSON.stringify(requestBody),
+          })
+            .then(response => response.json())
+            .then(updatedFileData => {
+              console.log('days.json file has been updated.');
+            })
+            .catch(error => {
+              console.error('Error updating days.json:', error);
+            });
+        })
+        .catch(error => {
+          console.error('Error fetching file data:', error);
+        });
     })
     .catch(error => {
       console.error('Error fetching or processing data:', error);
