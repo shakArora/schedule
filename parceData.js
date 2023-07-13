@@ -58,7 +58,7 @@ function parseData() {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `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`, 
+              Authorization: Bearer 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, 
             },
             body: JSON.stringify(requestBody),
           })
