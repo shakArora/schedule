@@ -92,7 +92,30 @@
       </table>
     </div>
   </div>
+  <div class="container">
+    <h2>Next 7 days:</h2>
+    <table>
+      <tr>
+        <th><div id="1day"></div></th>
+        <th><div id="2day"></div></th>
+        <th><div id="3day"></div></th>
+        <th><div id="4day"></div></th>
+        <th><div id="5day"></div></th>
+        <th><div id="6day"></div></th>
+        <th><div id="7day"></div></th>
+      </tr>
+      <tr>
+        <td><div id="1-days"></div></td>
+        <td><div id="2-days"></div></td>
+        <td><div id="3-days"></div></td>
+        <td><div id="4-days"></div></td>
+        <td><div id="5-days"></div></td>
+        <td><div id="6-days"></div></td>
+        <td><div id="7-days"></div></td>
+      </tr>
 
+    </table>
+  </div>
   <div id="info">
     <br>
     <hr>
@@ -103,26 +126,32 @@
     <p>
           <br>
         Current version: <strong>1.0.1</strong> <br>
-        Last updated: <strong>7/10/23</strong>
+        Last updated: <strong>7/21/23</strong>
       <br><br><br>
     </p>
   </div>
   <script>
-    fetch('days.json')
+fetch('days.json')
   .then(response => response.json())
   .then(data => {
-    var currentDate = new Date().toISOString().split('T')[0];
-
-    var dayData = data.find(day => day.date === currentDate);
-
+    var currentDate = new Date();
+    var dayData = data.find(day => day.date === currentDate.toISOString().split('T')[0]);
     document.getElementById('dayType').innerHTML = dayData?.type || 'Unknown';
-
     document.getElementById('comment').innerHTML = dayData?.comment || '';
+
+    for (let i = 1; i <= 7; i++) {
+      const nextDate = new Date(currentDate);
+      nextDate.setDate(nextDate.getDate() + i);
+      const formattedDate = nextDate.toISOString().split('T')[0];
+      const dayDataNext = data.find(day => day.date === formattedDate);
+      document.getElementById(`${i}-days`).innerHTML = dayDataNext?.type || 'Unknown';
+      document.getElementById('comment').innerHTML = dayData?.comment || '';
+
+    }
   })
   .catch(error => {
     console.log('Error fetching JSON data:', error);
   });
-
 function calculateTimeUntilPeriodEnds() {
   var periodEndTime = new Date();
   var currentPeriod = getCurrentPeriod();
@@ -144,10 +173,10 @@ function calculateTimeUntilPeriodEnds() {
       periodEndTime.setHours(11, 30, 0);
       break;
     case "Period 3":
-      periodEndTime.setHours(12, 01, 0);
+      periodEndTime.setHours(12, 1, 0);
       break;
     case "Transition 3":
-      periodEndTime.setHours(12, 05, 0);
+      periodEndTime.setHours(12, 5, 0);
       break;
     case "Period 4 (8th Grade Lunch)":
       periodEndTime.setHours(12, 37, 0);
@@ -218,11 +247,11 @@ function getCurrentPeriod() {
     return "Period 2 (Talon TV)";
   } else if ((currentHour === 11 && currentMinute >= 26) && (currentHour === 11 && currentMinute < 30)) {
     return "Transition 2";
-  } else if ((currentHour === 11 && currentMinute >= 30) || (currentHour === 12 && currentMinute < 01)) {
+  } else if ((currentHour === 11 && currentMinute >= 30) || (currentHour === 12 && currentMinute < 1)) {
     return "Period 3";
-  } else if ((currentHour === 12 && currentMinute >= 01) && (currentHour === 12 && currentMinute < 05)) {
+  } else if ((currentHour === 12 && currentMinute >= 1) && (currentHour === 12 && currentMinute < 5)) {
     return "Transition 3";
-  } else if ((currentHour === 12 && currentMinute >= 05) && (currentHour === 12 && currentMinute < 37)) {
+  } else if ((currentHour === 12 && currentMinute >= 5) && (currentHour === 12 && currentMinute < 37)) {
     return "Period 4 (8th Grade Lunch)";
   } else if ((currentHour === 12 && currentMinute >= 37) && (currentHour === 12 && currentMinute < 41)) {
     return "Transition 4";
@@ -247,9 +276,22 @@ function getCurrentPeriod() {
   }
 }
 setInterval(calculateTimeUntilPeriodEnds, 1000);
-
 function updateCurrentTimeBox() {
   var currentTime = new Date();
+  var oneDate = new Date(currentTime);
+  oneDate.setDate(oneDate.getDate() + 1)
+  var twoDate = new Date(oneDate);
+  twoDate.setDate(twoDate.getDate() + 1)
+  var threeDate = new Date(twoDate);
+  threeDate.setDate(threeDate.getDate() + 1)
+  var fourDate = new Date(threeDate);
+  fourDate.setDate(fourDate.getDate() + 1)
+  var fiveDate = new Date(fourDate);
+  fiveDate.setDate(fiveDate.getDate() + 1)
+  var sixDate = new Date(fiveDate);
+  sixDate.setDate(sixDate.getDate() + 1)
+  var sevenDate = new Date(sixDate);
+  sevenDate.setDate(sevenDate.getDate() + 1)
   var hours = currentTime.getHours();
   var minutes = currentTime.getMinutes();
   var seconds = currentTime.getSeconds();
@@ -259,10 +301,52 @@ function updateCurrentTimeBox() {
   hours = hours ? hours : 12;
 
   var month = currentTime.getMonth() + 1;
+  var month1 = oneDate.getMonth() + 1;
+  var month2 = twoDate.getMonth() + 1;
+  var month3 = threeDate.getMonth() + 1;
+  var month4 = fourDate.getMonth() + 1;
+  var month5 = fiveDate.getMonth() + 1;
+  var month6 = sixDate.getMonth() + 1;
+  var month7 = sevenDate.getMonth() + 1;
+
+
+
 var day = currentTime.getDate();
+var day1 = oneDate.getDate();
+var day2 = twoDate.getDate();
+var day3 = threeDate.getDate();
+var day4 = fourDate.getDate();
+var day5 = fiveDate.getDate();
+var day6 = sixDate.getDate();
+var day7 = sevenDate.getDate();
+
 var year = currentTime.getFullYear().toString().slice(-2);
+var year1 = oneDate.getFullYear().toString().slice(-2);
+var year2 = twoDate.getFullYear().toString().slice(-2);
+var year3 = threeDate.getFullYear().toString().slice(-2);
+var year4 = fourDate.getFullYear().toString().slice(-2);
+var year5 = fiveDate.getFullYear().toString().slice(-2);
+var year6 = sixDate.getFullYear().toString().slice(-2);
+var year7 = sevenDate.getFullYear().toString().slice(-2);
+
 var formattedDate = month + '/' + day + '/' + year;
+var formattedDate1 = month1 + '/' + day1 + '/' + year1;
+var formattedDate2 = month2 + '/' + day2 + '/' + year2;
+var formattedDate3 = month3 + '/' + day3 + '/' + year3;
+var formattedDate4 = month4 + '/' + day4 + '/' + year4;
+var formattedDate5 = month5 + '/' + day5 + '/' + year5;
+var formattedDate6 = month6 + '/' + day6 + '/' + year6;
+var formattedDate7 = month7 + '/' + day7 + '/' + year7;
+
 document.getElementById("currentDate").innerHTML = formattedDate;
+document.getElementById("1day").innerHTML = formattedDate1;
+document.getElementById("2day").innerHTML = formattedDate2;
+document.getElementById("3day").innerHTML = formattedDate3;
+document.getElementById("4day").innerHTML = formattedDate4;
+document.getElementById("5day").innerHTML = formattedDate5;
+document.getElementById("6day").innerHTML = formattedDate6;
+document.getElementById("7day").innerHTML = formattedDate7;
+
   document.getElementById("currentTime").innerHTML =
     hours + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0') + " " + ampm;
 }
