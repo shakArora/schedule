@@ -20,10 +20,17 @@ function parseData() {
                 var date = XLSX.SSF.format('yyyy-mm-dd', row[0]);
                 var event = row[1];
                 var comment = row[2] || '';
+                var daysLeft = row[4];
+                var sb = row[5];
+                var clubs = row[6];
                 var dataObj = {
                     date: date,
                     type: event,
-                    comment: comment
+                    comment: comment,
+                    daysLeft: daysLeft,
+                    sb: sb,
+                    clubs: clubs
+
                 };
                 jsonData.push(dataObj);
             }
